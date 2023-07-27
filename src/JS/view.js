@@ -19,7 +19,7 @@ class Todos {
   }
 
   _todoMarkup(todo) {
-    return `<li class="todo" data-id="${todo.id}">
+    return `<li class="todo ${todo.checked ? "todo-checked" : ''}" data-id="${todo.id}">
               <h5>${this._generatedate(this._today)}</h5>
               <div class="todo-list-content">
                 <h2 ${
@@ -64,8 +64,12 @@ class Todos {
   checkedTodoHandler(functionHandler) { 
     document.addEventListener('change', (e) => {
       if (e.target.matches('#todo-checked')) {
-       const id = e.target.closest('.todo').dataset.id
+       const todo = e.target.closest('.todo');
+        const id = todo.dataset.id;
+        console.log(todo);
+        todo.classList.add('todo-checked');
         functionHandler(id);
+        
       }
     })
   }

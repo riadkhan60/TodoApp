@@ -303,16 +303,17 @@ li {
   border: none;
 }
 
-.todo-checked{
+.todo-checked {
   position: relative;
 }
 
-.todo-checked > *{
+.todo-checked > * {
   opacity: 0.1;
+  transition: all 0.3s ease-in-out;
   
 }
 
-.todo-checked::after{
+.todo-checked::after {
   content: '';
   position: absolute;
   width: 100%;
@@ -321,7 +322,7 @@ li {
   left: 0;
 }
 
-.todo-checked::before{
+.todo-checked::before {
   content: 'Completed ✓';
   position: absolute;
   padding: 1rem;

@@ -19,9 +19,11 @@ function controlAddTodo() {
 }
 
 function controlCheckedTodo(id) {
-  const findIndex = todos.findIndex(todo => todo.id === id);
+  const todo = todos.find(todo => todo.id === id);
   // todos.splice(findIndex, 1);
+  todo.checked = true;
   saveToStorage();
+  
 }
 
 

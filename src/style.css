@@ -193,8 +193,14 @@ li {
   flex-direction: column;
   height: auto;
   gap: 10px;
-  position: relative;
+  position: relative; 
 }
+
+.todo-animate{
+  transition: all 0.3s ease-in-out;
+}
+
+
 .todo:nth-child(even) {
   background-color: #000000;
 }

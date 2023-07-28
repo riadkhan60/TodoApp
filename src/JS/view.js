@@ -80,8 +80,12 @@ class Todos {
     document.addEventListener('click', (e) => {
       if (e.target.matches('.todo-delete') || e.target.matches('.delete-icon')) {
         const todo = e.target.closest('.todo');
+        todo.classList.add('todo-animate')
         const id = todo.dataset.id;
-        todo.remove();
+        todo.style.opacity = '0';
+        setTimeout(() => {
+          todo.remove();
+         }, 400)
         functionHandler(id);
       }
     })

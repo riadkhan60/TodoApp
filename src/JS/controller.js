@@ -27,9 +27,16 @@ function controlCheckedTodo(id) {
 }
 
 
+function controlDeleteTodo(id) {
+  const todoIndex =  todos.findIndex(todo => todo.id === id);
+  todos.splice(todoIndex, 1);
+  saveToStorage();
+}
+
 function init() {
   Todos.addTodoHandler(controlAddTodo);
-  Todos.checkedTodoHandler(controlCheckedTodo)
+  Todos.checkedTodoHandler(controlCheckedTodo);
+  Todos.deleteTodoHandler(controlDeleteTodo);
 }
 
 init();

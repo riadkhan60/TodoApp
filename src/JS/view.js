@@ -19,7 +19,9 @@ class Todos {
   }
 
   _todoMarkup(todo) {
-    return `<li class="todo ${todo.checked ? "todo-checked" : ''}" data-id="${todo.id}">
+    return `<li class="todo ${todo.checked ? 'todo-checked' : ''}" data-id="${
+      todo.id
+    }">
               <h5>${this._generatedate(this._today)}</h5>
               <div class="todo-list-content">
                 <h2 ${
@@ -42,7 +44,7 @@ class Todos {
                   Edit <span class="material-symbols-outlined"> edit</span>
                 </button>
                 <button class="todo-list-button todo-delete">
-                  Delete<span class="material-symbols-outlined"> delete </span>
+                  Delete<span class="material-symbols-outlined delete-icon"> delete </span>
                 </button>
               </div>
 
@@ -70,6 +72,17 @@ class Todos {
         todo.classList.add('todo-checked');
         functionHandler(id);
         
+      }
+    })
+  }
+
+  deleteTodoHandler(functionHandler) {
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.todo-delete') || e.target.matches('.delete-icon')) {
+        const todo = e.target.closest('.todo');
+        const id = todo.dataset.id;
+        todo.remove();
+        functionHandler(id);
       }
     })
   }

@@ -219,7 +219,7 @@ li {
 }
 
 .todo-animate {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out 0.2s;
 }
 
 .todo:nth-child(even) {
@@ -395,7 +395,7 @@ li {
   width: 50%;
   margin: auto;
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 25%;
   padding: 6rem;
   border-radius: 10px;
@@ -434,7 +434,6 @@ li {
   align-items: center;
   gap: 2px;
   cursor: pointer;
-  
 }
 .popup-button.popup-yes{
   color: rgb(55, 3, 3);
@@ -451,8 +450,12 @@ li {
   z-index: 300;
 }
 
+.popup-button span{
+ transition: all 0.3s ease-in-out;
+}
 
-.popup-button:hover span{
+.popup-button:hover span
+{
   transform: scale(1.2);
 }
 

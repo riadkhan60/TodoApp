@@ -1,7 +1,6 @@
 class Todos {
   _today = new Date();
   #addTodoButton = document.querySelector('#add-todo-btn');
-
   constructor() {
     this._validationPopUpHandler();
   }
@@ -27,6 +26,22 @@ class Todos {
   renderPopUp(markup) {
     document.body.insertAdjacentHTML('beforeend', markup);
   }
+
+  _deleteTodoMarkup() {
+    return `<section id = "popup-delete-todo">
+      <div class="d-overlay overlay"></div>
+      <div class="popup popup-delete">
+        <h3>Are you sure to remove it? </h3>
+        <div class="popup-buttons">
+          <button class="popup-button popup-yes yes"><span class="material-symbols-outlined yes">done</span>Yes
+          </button>
+          <button class="popup-button popup-no no"><span class="material-symbols-outlined no">close</span>No
+          </button>
+      </div>
+       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
+    </section>`;
+  }
+
   _checktodoMarkup() {
     return `
     <section id = "popup-checked-todo">
@@ -39,6 +54,7 @@ class Todos {
           <button class="popup-button popup-no no"><span class="material-symbols-outlined no">close</span>No
           </button>
       </div>
+       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
     </section>
     `;
   }
@@ -134,16 +150,30 @@ class Todos {
         e.target.matches('.delete-icon')
       ) {
         const todo = e.target.closest('.todo');
-        todo.classList.add('todo-animate');
         const id = todo.dataset.id;
+        this._deleteTodoPopupHandler(todo, id, functionHandler);
+      }
+    });
+  }
+
+  _deleteTodoPopupHandler(todo, id, functionHandler) {
+    this.renderPopUp(this._deleteTodoMarkup());
+    document.addEventListener('click', (x) => {
+      if (x.target.matches('.yes')) {
+        todo.classList.add('todo-animate');
+        x.target.closest('#popup-delete-todo').remove();
         todo.style.opacity = '0';
         setTimeout(() => {
           todo.remove();
         }, 400);
         functionHandler(id);
       }
+      if (x.target.matches('.no') || x.target.matches('.d-overlay')) {
+        x.target.closest('#popup-delete-todo').remove();
+      }
     });
   }
+
   _validationPopUpHandler() {
     document.addEventListener('click', (e) => {
       if (e.target.matches('.okay') || e.target.matches('.v-overlay')) {

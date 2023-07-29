@@ -11,7 +11,7 @@ window.addEventListener('load', (x) => {
 function controlAddTodo() {
   const inputValues = getTheValues();
   if (!inputValues) {
-    alert('Please include title or description');
+    Todos.renderValidationPopUp();
     return;
   }
   Todos.renderMarkup(inputValues);

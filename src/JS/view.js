@@ -2,7 +2,9 @@ class Todos {
   _today = new Date();
   #addTodoButton = document.querySelector('#add-todo-btn');
 
-  constructor() {}
+  constructor() {
+    this._validationPopUpHandler();
+  }
 
   _generatedate(date) {
     return Intl.DateTimeFormat('en-GB', {
@@ -16,6 +18,41 @@ class Todos {
     const todosContainer = document.querySelector('#todos');
     console.log(todo.titleValue.length);
     todosContainer.insertAdjacentHTML('afterbegin', this._todoMarkup(todo));
+  }
+
+  renderValidationPopUp() {
+    document.body.insertAdjacentHTML('beforeend', this._validationPopUp());
+  }
+
+  renderPopUp(markup) {
+    document.body.insertAdjacentHTML('beforeend', markup);
+  }
+  _checktodoMarkup() {
+    return `
+    <section id = "popup-checked-todo">
+      <div class="c-overlay overlay"></div>
+      <div class="popup popup-complete">
+        <h3>Are you sure about marking it "Completed"? </h3>
+        <div class="popup-buttons">
+          <button class="popup-button popup-yes yes"><span class="material-symbols-outlined yes">done</span>Yes
+          </button>
+          <button class="popup-button popup-no no"><span class="material-symbols-outlined no">close</span>No
+          </button>
+      </div>
+    </section>
+    `;
+  }
+
+  _validationPopUp() {
+    return `<section id="popup-validation-section">
+      <div class="v-overlay overlay"></div>
+      <div class="popup popup-validation">
+        <h3>Please Insert Title Or Description</h3>
+        <div class="popup-buttons">
+          <button class="popup-button okay popup-Okay"><span class="material-symbols-outlined okay">done</span>Okay
+          </button>
+      </div>
+    </section>`;
   }
 
   _todoMarkup(todo) {
@@ -51,7 +88,7 @@ class Todos {
               <div class="cheked">
                 <input type="checkbox" ${
                   todo.checked ? 'checked' : ''
-                } name="todo-checked" id="todo-checked" />
+                } name="todo-checked" id="todo-checked" class="todo-input-checked" />
                 <span> </span>
               </div>
           </li>`;
@@ -63,32 +100,57 @@ class Todos {
     });
   }
 
-  checkedTodoHandler(functionHandler) { 
+  checkedTodoHandler(functionHandler) {
     document.addEventListener('change', (e) => {
       if (e.target.matches('#todo-checked')) {
-       const todo = e.target.closest('.todo');
+        const todo = e.target.closest('.todo');
         const id = todo.dataset.id;
-        console.log(todo);
-        todo.classList.add('todo-checked');
-        functionHandler(id);
-        
+        this.checkedTodoPopUpHandler(todo, id, functionHandler);
       }
-    })
+    });
+  }
+
+  checkedTodoPopUpHandler(todo, id, functionHandler) {
+    this.renderPopUp(this._checktodoMarkup());
+    document.addEventListener('click', (x) => {
+      if (x.target.matches('.yes')) {
+        x.target.closest('#popup-checked-todo').remove();
+        todo.checked = true;
+        todo.classList.add('todo-checked');
+        todo.querySelector('.todo-input-checked').checked = true;
+        functionHandler(id);
+      }
+      if (x.target.matches('.no') || x.target.matches('.c-overlay')) {
+        x.target.closest('#popup-checked-todo').remove();
+        todo.querySelector('.todo-input-checked').checked = false;
+      }
+    });
   }
 
   deleteTodoHandler(functionHandler) {
     document.addEventListener('click', (e) => {
-      if (e.target.matches('.todo-delete') || e.target.matches('.delete-icon')) {
+      if (
+        e.target.matches('.todo-delete') ||
+        e.target.matches('.delete-icon')
+      ) {
         const todo = e.target.closest('.todo');
-        todo.classList.add('todo-animate')
+        todo.classList.add('todo-animate');
         const id = todo.dataset.id;
         todo.style.opacity = '0';
         setTimeout(() => {
           todo.remove();
-         }, 400)
+        }, 400);
         functionHandler(id);
       }
-    })
+    });
+  }
+  _validationPopUpHandler() {
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.okay') || e.target.matches('.v-overlay')) {
+        const popupSection = e.target.closest('#popup-validation-section');
+        popupSection.remove();
+      }
+    });
   }
 }
 

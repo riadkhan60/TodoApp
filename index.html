@@ -44,14 +44,14 @@
               placeholder="Add Title"
               maxlength="20"
             />
-            <input class="add-todo-time" type="datetime-local" />
+            <input id="add-todo-time" class="add-todo-time" type="datetime-local" />
             <input
               id="add-todo-text"
               type="text"
               placeholder="Add Description"
             />
             <button id="add-todo-btn" class="add-todo-button" type="submit">
-              Add<span class="material-symbols-outlined"> add_circle </span>
+              Add<span class="material-symbols-outlined add-todo-button-icon"> add_circle </span>
             </button>
           </form>
 
@@ -122,13 +122,23 @@
       </div>
     </section>
     <section>
-      <div class="overlay hide-display"></div>
-      <div class="popup hide-display popup-complete">
+      <div class="overlay "></div>
+      <div class="popup  popup-complete">
         <h3>Are You sure mark it as Completed?</h3>
         <div class="popup-buttons">
           <button class="popup-button popup-yes"><span class="material-symbols-outlined">done</span>Yes
           </button>
           <button class="popup-button popup-no"><span class="material-symbols-outlined">close</span>No
+          </button>
+      </div>
+      <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
+    </section>
+    <section>
+      <div class="overlay hide-display"></div>
+      <div class="popup hide-display popup-validation">
+        <h3>Please Insert Title Or Description</h3>
+        <div class="popup-buttons">
+          <button class="popup-button popup-Okay"><span class="material-symbols-outlined">done</span>Okay
           </button>
       </div>
     </section>

@@ -6,6 +6,8 @@ const dateInput = document.querySelector('.add-todo-time');
 
 export let todos = [];
 
+localStorage.removeItem('checkedpopupPermisson');
+localStorage.removeItem('deletepopupPermisson');
 // function for todo's date input coversation to JS Date
 function convertDate(date) {
   if (!date) return '';

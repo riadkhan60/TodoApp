@@ -27,13 +27,15 @@ function controlDeleteTodo(id) {
   const todoIndex = todos.findIndex((todo) => todo.id === id);
   todos.splice(todoIndex, 1);
   saveToStorage();
-  console.log(todos);
 }
+
 
 function init() {
   Todos.addTodoHandler(controlAddTodo);
   Todos.checkedTodoPopUpHandler(controlCheckedTodo);
   Todos.deleteTodoPopupHandler(controlDeleteTodo);
+  Todos._checkedTodoHandler(controlCheckedTodo);
+  Todos._deleteTodoHandler(controlDeleteTodo)
 }
 
 init();

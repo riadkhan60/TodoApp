@@ -2,11 +2,10 @@ import { getTheValues, saveToStorage, allTodos, todos } from './modal.js';
 import Todos from './view.js';
 
 window.addEventListener('load', (x) => {
-  allTodos(todo => {
+  allTodos((todo) => {
     Todos.renderMarkup(todo);
-  })
+  });
 });
-
 
 function controlAddTodo() {
   const inputValues = getTheValues();
@@ -19,23 +18,22 @@ function controlAddTodo() {
 }
 
 function controlCheckedTodo(id) {
-  const todo = todos.find(todo => todo.id === id);
+  const todo = todos.find((todo) => todo.id === id);
   todo.checked = true;
   saveToStorage();
-  
 }
 
-
 function controlDeleteTodo(id) {
-  const todoIndex =  todos.findIndex(todo => todo.id === id);
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
   todos.splice(todoIndex, 1);
   saveToStorage();
+  console.log(todos);
 }
 
 function init() {
   Todos.addTodoHandler(controlAddTodo);
-  Todos.checkedTodoHandler(controlCheckedTodo);
-  Todos.deleteTodoHandler(controlDeleteTodo);
+  Todos.checkedTodoPopUpHandler(controlCheckedTodo);
+  Todos.deleteTodoPopupHandler(controlDeleteTodo);
 }
 
 init();

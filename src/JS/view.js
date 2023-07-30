@@ -1,8 +1,13 @@
 class Todos {
   _today = new Date();
   #addTodoButton = document.querySelector('#add-todo-btn');
+  #currentId;
+  #currentTodo;
+
   constructor() {
     this._validationPopUpHandler();
+    this._checkedTodoHandler();
+    this._deleteTodoHandler();
   }
 
   _generatedate(date) {
@@ -28,14 +33,14 @@ class Todos {
   }
 
   _deleteTodoMarkup() {
-    return `<section id = "popup-delete-todo">
+    return `<section id ="popup-delete-todo">
       <div class="d-overlay overlay"></div>
       <div class="popup popup-delete">
         <h3>Are you sure to remove it? </h3>
         <div class="popup-buttons">
-          <button class="popup-button popup-yes yes"><span class="material-symbols-outlined yes">done</span>Yes
+          <button class="popup-button popup-yes del-yes"><span class="material-symbols-outlined yes">done</span>Yes
           </button>
-          <button class="popup-button popup-no no"><span class="material-symbols-outlined no">close</span>No
+          <button class="popup-button popup-no del-no"><span class="material-symbols-outlined no">close</span>No
           </button>
       </div>
        <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
@@ -49,9 +54,9 @@ class Todos {
       <div class="popup popup-complete">
         <h3>Are you sure about marking it "Completed"? </h3>
         <div class="popup-buttons">
-          <button class="popup-button popup-yes yes"><span class="material-symbols-outlined yes">done</span>Yes
+          <button class="popup-button popup-yes check-yes"><span class="material-symbols-outlined yes">done</span>Yes
           </button>
-          <button class="popup-button popup-no no"><span class="material-symbols-outlined no">close</span>No
+          <button class="popup-button popup-no check-no"><span class="material-symbols-outlined no">close</span>No
           </button>
       </div>
        <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
@@ -116,34 +121,36 @@ class Todos {
     });
   }
 
-  checkedTodoHandler(functionHandler) {
-    document.addEventListener('change', (e) => {
+  _checkedTodoHandler() {
+    document.addEventListener('click', (e) => {
       if (e.target.matches('#todo-checked')) {
         const todo = e.target.closest('.todo');
         const id = todo.dataset.id;
-        this.checkedTodoPopUpHandler(todo, id, functionHandler);
+        this.#currentId = id;
+        this.#currentTodo = todo;
+        // this.checkedTodoPopUpHandler(todo, id, functionHandler);
+        this.renderPopUp(this._checktodoMarkup());
       }
     });
   }
 
-  checkedTodoPopUpHandler(todo, id, functionHandler) {
-    this.renderPopUp(this._checktodoMarkup());
+  checkedTodoPopUpHandler(functionHandler) {
     document.addEventListener('click', (x) => {
-      if (x.target.matches('.yes')) {
+      if (x.target.matches('.check-yes')) {
         x.target.closest('#popup-checked-todo').remove();
-        todo.checked = true;
-        todo.classList.add('todo-checked');
-        todo.querySelector('.todo-input-checked').checked = true;
-        functionHandler(id);
+        this.#currentTodo.checked = true;
+        this.#currentTodo.classList.add('todo-checked');
+        this.#currentTodo.querySelector('.todo-input-checked').checked = true;
+        functionHandler(this.#currentId);
       }
-      if (x.target.matches('.no') || x.target.matches('.c-overlay')) {
+      if (x.target.matches('.check-no') || x.target.matches('.c-overlay')) {
         x.target.closest('#popup-checked-todo').remove();
-        todo.querySelector('.todo-input-checked').checked = false;
+        this.#currentTodo.querySelector('.todo-input-checked').checked = false;
       }
-    });
+    }); 
   }
 
-  deleteTodoHandler(functionHandler) {
+  _deleteTodoHandler() {
     document.addEventListener('click', (e) => {
       if (
         e.target.matches('.todo-delete') ||
@@ -151,24 +158,29 @@ class Todos {
       ) {
         const todo = e.target.closest('.todo');
         const id = todo.dataset.id;
-        this._deleteTodoPopupHandler(todo, id, functionHandler);
+
+        this.#currentId = id;
+        this.#currentTodo = todo;
+        // functionHandler(id);
+        // todo.remove();
+        // this._deleteTodoPopupHandler(todo, id, functionHandler);
+        this.renderPopUp(this._deleteTodoMarkup());
       }
     });
   }
 
-  _deleteTodoPopupHandler(todo, id, functionHandler) {
-    this.renderPopUp(this._deleteTodoMarkup());
+  deleteTodoPopupHandler(functionHandler) {
     document.addEventListener('click', (x) => {
-      if (x.target.matches('.yes')) {
-        todo.classList.add('todo-animate');
+      if (x.target.matches('.del-yes')) {
+        this.#currentTodo.classList.add('todo-animate');
         x.target.closest('#popup-delete-todo').remove();
-        todo.style.opacity = '0';
+        this.#currentTodo.style.opacity = '0';
         setTimeout(() => {
-          todo.remove();
+          this.#currentTodo.remove();
         }, 400);
-        functionHandler(id);
+        functionHandler(this.#currentId);
       }
-      if (x.target.matches('.no') || x.target.matches('.d-overlay')) {
+      if (x.target.matches('.del-no') || x.target.matches('.d-overlay')) {
         x.target.closest('#popup-delete-todo').remove();
       }
     });

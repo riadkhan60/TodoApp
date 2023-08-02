@@ -217,7 +217,6 @@ li {
   gap: 10px;
   position: relative;
 }
-
 .todo-animate {
   transition: all 0.3s ease-in-out 0.2s;
 }
@@ -300,6 +299,7 @@ li {
 
 .todo-delete {
   margin-left: 10px;
+  z-index: 4546464;
 }
 
 .todo-list-content-title {

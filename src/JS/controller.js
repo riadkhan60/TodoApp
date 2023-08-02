@@ -14,6 +14,7 @@ function controlAddTodo() {
     return;
   }
   Todos.renderMarkup(inputValues);
+  console.log(todos);
   saveToStorage();
 }
 
@@ -29,13 +30,21 @@ function controlDeleteTodo(id) {
   saveToStorage();
 }
 
+function editController(id) {
+  const todo = todos.find((todo) => todo.id === id);
+  return todo;
+}
 
 function init() {
   Todos.addTodoHandler(controlAddTodo);
   Todos.checkedTodoPopUpHandler(controlCheckedTodo);
   Todos.deleteTodoPopupHandler(controlDeleteTodo);
   Todos._checkedTodoHandler(controlCheckedTodo);
-  Todos._deleteTodoHandler(controlDeleteTodo)
+  Todos._deleteTodoHandler(controlDeleteTodo);
+  Todos.editTodoHandler(editController);
+  // Todos.inputboxHandler()
 }
 
 init();
+
+console.log(new Date().toISOString());

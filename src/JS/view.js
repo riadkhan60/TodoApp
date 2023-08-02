@@ -20,69 +20,11 @@ class Todos {
     }).format(date);
   }
 
-  renderMarkup(todo) {
-    const todosContainer = document.querySelector('#todos');
-    console.log(todo.titleValue.length);
-    todosContainer.insertAdjacentHTML('afterbegin', this._todoMarkup(todo));
-  }
-
-  renderValidationPopUp() {
-    document.body.insertAdjacentHTML('beforeend', this._validationPopUp());
-  }
-
-  renderPopUp(markup) {
-    document.body.insertAdjacentHTML('beforeend', markup);
-  }
-
-  _deleteTodoMarkup() {
-    return `<section id ="popup-delete-todo">
-      <div class="d-overlay overlay"></div>
-      <div class="popup popup-delete">
-        <h3>Are you sure to remove it? </h3>
-        <div class="popup-buttons">
-          <button class="popup-button popup-yes del-yes"><span class="material-symbols-outlined yes">done</span>Yes
-          </button>
-          <button class="popup-button popup-no del-no"><span class="material-symbols-outlined no">close</span>No
-          </button>
-      </div>
-       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox" id ="delete-popup-permisson">  </span> </p>
-    </section>`;
-  }
-
-  _checktodoMarkup() {
-    return `
-    <section id = "popup-checked-todo">
-      <div class="c-overlay overlay"></div>
-      <div class="popup popup-complete">
-        <h3>Are you sure about marking it "Completed"? </h3>
-        <div class="popup-buttons">
-          <button class="popup-button popup-yes check-yes"><span class="material-symbols-outlined yes">done</span>Yes
-          </button>
-          <button class="popup-button popup-no check-no"><span class="material-symbols-outlined no">close</span>No
-          </button>
-      </div>
-       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox" id ="checked-popup-permisson">  </span> </p>
-    </section>
-    `;
-  }
-
-  _validationPopUp() {
-    return `<section id="popup-validation-section">
-      <div class="v-overlay overlay"></div>
-      <div class="popup popup-validation">
-        <h3>Please Insert Title Or Description</h3>
-        <div class="popup-buttons">
-          <button class="popup-button okay popup-Okay"><span class="material-symbols-outlined okay">done</span>Okay
-          </button>
-      </div>
-    </section>`;
-  }
-
   _todoMarkup(todo) {
     return `<li class="todo ${todo.checked ? 'todo-checked' : ''}" data-id="${
       todo.id
     }">
-              <h5>${this._generatedate(this._today)}</h5>
+              <h5>${todo.createdDate}</h5>
               <div class="todo-list-content">
                 <h2 ${
                   todo.titleValue.length > 6 ? 'style="font-size:2.5rem"' : ''
@@ -116,11 +58,63 @@ class Todos {
               </div>
           </li>`;
   }
+
+  renderMarkup(todo) {
+    const todosContainer = document.querySelector('#todos');
+    todosContainer.insertAdjacentHTML('afterbegin', this._todoMarkup(todo));
+  }
+
   addTodoHandler(functionHandler) {
     this.#addTodoButton.addEventListener('click', (e) => {
       e.preventDefault();
       functionHandler();
     });
+  }
+
+  _validationPopUp() {
+    return `<section id="popup-validation-section">
+      <div class="v-overlay overlay"></div>
+      <div class="popup popup-validation">
+        <h3>Please Insert Title Or Description</h3>
+        <div class="popup-buttons">
+          <button class="popup-button okay popup-Okay"><span class="material-symbols-outlined okay">done</span>Okay
+          </button>
+      </div>
+    </section>`;
+  }
+
+  renderValidationPopUp() {
+    document.body.insertAdjacentHTML('beforeend', this._validationPopUp());
+  }
+
+  _validationPopUpHandler() {
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.okay') || e.target.matches('.v-overlay')) {
+        const popupSection = e.target.closest('#popup-validation-section');
+        popupSection.remove();
+      }
+    });
+  }
+
+  renderPopUp(markup) {
+    document.body.insertAdjacentHTML('beforeend', markup);
+  }
+
+  _checktodoMarkup() {
+    return `
+    <section id = "popup-checked-todo">
+      <div class="c-overlay overlay"></div>
+      <div class="popup popup-complete">
+        <h3>Are you sure about marking it "Completed"? </h3>
+        <div class="popup-buttons">
+          <button class="popup-button popup-yes check-yes"><span class="material-symbols-outlined check-yes">done</span>Yes
+          </button>
+          <button class="popup-button popup-no check-no"><span class="material-symbols-outlined check-no">close</span>No
+          </button>
+      </div>
+       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox" id ="checked-popup-permisson">  </span> </p>
+    </section>
+    `;
   }
 
   _checkedTodoHandler(functionHandler) {
@@ -169,6 +163,21 @@ class Todos {
     });
   }
 
+  _deleteTodoMarkup() {
+    return `<section id ="popup-delete-todo">
+      <div class="d-overlay overlay"></div>
+      <div class="popup popup-delete">
+        <h3>Are you sure to remove it? </h3>
+        <div class="popup-buttons">
+          <button class="popup-button popup-yes del-yes"><span class="material-symbols-outlined  del-yes">done</span>Yes
+          </button>
+          <button class="popup-button popup-no del-no"><span class="material-symbols-outlined del-no">close</span>No
+          </button>
+      </div>
+       <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox" id ="delete-popup-permisson">  </span> </p>
+    </section>`;
+  }
+
   _deleteTodoHandler(functionHandler) {
     document.addEventListener('click', (e) => {
       if (
@@ -194,7 +203,7 @@ class Todos {
     document.addEventListener('click', (x) => {
       if (x.target.matches('.del-yes')) {
         x.target.closest('#popup-delete-todo').remove();
-       this._deleteTodofunc(functionHandler)
+        this._deleteTodofunc(functionHandler);
       }
       if (x.target.matches('.del-no') || x.target.matches('.d-overlay')) {
         x.target.closest('#popup-delete-todo').remove();
@@ -219,11 +228,85 @@ class Todos {
     });
   }
 
-  _validationPopUpHandler() {
+  renderEdit(todoObj) {
+    Array.from(this.#currentTodo.children).forEach((element) => {
+      element.classList.add('hide-display');
+    });
+    this.#currentTodo.insertAdjacentHTML(
+      'beforeend',
+      this._editViewMarkup(todoObj),
+    );
+  }
+
+  _dateTimeLoaclValueFormation(date) {
+    date = new Date(date);
+    return `${date.getFullYear()}-${
+      String(date.getMonth()).length == 1
+        ? '0' + (date.getMonth() + 1)
+        : date.getMonth() + 1
+    }-${
+      String(date.getDate()).length == 1
+        ? '0' + date.getDate()
+        : date.getDate()
+    }T${
+      String(date.getHours()).length == 1
+        ? '0' + date.getHours()
+        : date.getHours()
+    }:${
+      String(date.getMinutes()).length == 1
+        ? '0' + date.getMinutes()
+        : date.getMinutes()
+    }`;
+  }
+
+  _editViewMarkup(todoObj) {
+    console.log(this._dateTimeLoaclValueFormation(todoObj.date));
+    return `<h5>${todoObj.createdDate}</h5>
+              <div class="todo-list-content-edit">
+                <input class="add-todo-time" type="datetime-local"  value="${this._dateTimeLoaclValueFormation(
+                  todoObj.date,
+                )}"/>
+                <label for="Title">
+                  Title -
+                  <br />
+                  <input
+                    class="todo-list-content-title"
+                    type="textarea"
+                    value="${todoObj.titleValue}"
+                  />
+                </label>
+                <label for="details">
+                  Details -
+                  <br />
+                  <textarea
+                    name="details"
+                    class="todo-list-content-text"
+                    cols="40"
+                    rows="5"
+                  >${todoObj.textValue}</textarea>
+                </label>
+              </div>
+              <div class="todo-list-buttons">
+                <button class="todo-list-button todo-edit">
+                  Done<span class="material-symbols-outlined"> done </span>
+                </button>
+              </div>`;
+  }
+
+  // inputboxHandler() {
+  //   document.addEventListener('input', e => {
+  //     if (!e.target.matches('.todo-list-content-text')) return;
+  //     e.target.style.height = 'auto';
+  //     e.target.style.height = e.target.scrollHeight + 'px';
+  //   })
+  // }
+
+  editTodoHandler(functionHandler) {
     document.addEventListener('click', (e) => {
-      if (e.target.matches('.okay') || e.target.matches('.v-overlay')) {
-        const popupSection = e.target.closest('#popup-validation-section');
-        popupSection.remove();
+      if (e.target.matches('.todo-edit')) {
+        this.#currentTodo = e.target.closest('.todo');
+        this.#currentId = this.#currentTodo.dataset.id;
+        this.renderEdit(functionHandler(this.#currentId));
       }
     });
   }

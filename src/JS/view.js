@@ -336,15 +336,15 @@ class Todos {
         };
 
         const todoDate = todo.querySelector('.todo-list-content-date');
+
         
         todoDate.innerText = 'on ' + editData.time;
+        if (!editData.time) todoDate.innerText = '';
         
         const todoTitle = todo.querySelector('.todo-title');
-        
+
         todoTitle.innerText = editData.title;
-        
-       
-        
+
         console.log(todo.querySelector('.todo-list-content-date'));
 
         todo.querySelector('.todo-text').innerText = editData.description;
@@ -366,6 +366,25 @@ class Todos {
         }
       }
     });
+  }
+
+  _messageMarkup() {
+    return `<li class="emptylist-msg">
+      <h2>The list is Empty</h2>
+      <p>Add to show the todo list</p>
+    </li>`;
+  }
+
+  renderMessage() {
+    const todosContainer = document.querySelector('#todos');
+    setTimeout(() => {
+      todosContainer.insertAdjacentHTML('beforeend',this._messageMarkup());
+    },500)
+  }
+
+  
+  deleteMessage() {
+    document.querySelector('.emptylist-msg').remove();
   }
 }
 

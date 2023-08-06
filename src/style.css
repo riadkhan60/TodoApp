@@ -488,3 +488,10 @@ li {
 }
 
 .hide-display{ display: none; }
+
+.emptylist-msg {
+  text-align: center;
+  color: #ff9d0a;
+  font-size: 2rem;
+  gap: 0;
+}

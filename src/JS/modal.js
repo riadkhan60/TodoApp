@@ -1,7 +1,7 @@
 // get all the input elements
 const titleInput = document.querySelector('#add-todo-title');
 const textInput = document.querySelector('#add-todo-text');
-const dateInput = document.querySelector('.add-todo-time');
+const dateInput = document.querySelector('#add-todo-time');
 
 export let todos = [];
 
@@ -44,6 +44,8 @@ export function getTheValues() {
   todoValue.checked = false;
   todos.push(todoValue);
   clearValues();
+
+  console.log(dateInput.value);
   return todoValue;
 }
 
@@ -53,7 +55,6 @@ function clearValues() {
   dateInput.value = '';
 }
 
-console.log(null || 'adad');
 
 export function saveToStorage() {
   localStorage.setItem('todos', JSON.stringify(todos));

@@ -35,6 +35,15 @@ function editController(id) {
   return todo;
 }
 
+function editDoneController(id , editData) {
+  const todo = todos.find((todo) => todo.id === id);
+  todo.titleValue = editData.title;
+  todo.textValue = editData.description;
+  todo.dateValue = editData.time;
+
+  saveToStorage();
+}
+
 function init() {
   Todos.addTodoHandler(controlAddTodo);
   Todos.checkedTodoPopUpHandler(controlCheckedTodo);
@@ -42,9 +51,8 @@ function init() {
   Todos._checkedTodoHandler(controlCheckedTodo);
   Todos._deleteTodoHandler(controlDeleteTodo);
   Todos.editTodoHandler(editController);
-  // Todos.inputboxHandler()
+  Todos.inputboxHandler()
+  Todos.editDoneTodoHandler(editDoneController);
 }
 
 init();
-
-console.log(new Date().toISOString());

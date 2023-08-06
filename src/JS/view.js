@@ -6,18 +6,17 @@ class Todos {
 
   constructor() {
     this._validationPopUpHandler();
-    // this._checkedTodoHandler();
-    // this._deleteTodoHandler();
     this._checkPopUpPermissions();
     this._deletePopUpPermisson();
   }
 
   _generatedate(date) {
+    if (!date) return '';
     return Intl.DateTimeFormat('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
-    }).format(date);
+    }).format(new Date(date));
   }
 
   _todoMarkup(todo) {
@@ -29,10 +28,12 @@ class Todos {
                 <h2 ${
                   todo.titleValue.length > 6 ? 'style="font-size:2.5rem"' : ''
                 } >
-                  ${todo.titleValue}
+                  <span class="todo-title">${todo.titleValue}</span>
                   <span class="todo-list-content-date" ${
                     todo.titleValue.length > 6 ? 'style="font-size:1rem"' : ''
-                  } >${todo.dateValue ? 'on ' + todo.dateValue : ''} </span>
+                  } >${''}${
+      todo.dateValue ? 'on ' + todo.dateValue : ''
+    } </span>
                 </h2>
                 <p class="todo-text" ${
                   todo.titleValue.length > 6 ? 'style="font-size:1.6rem"' : ''
@@ -129,7 +130,6 @@ class Todos {
           this._checkTodofunc(functionHandler);
           return;
         }
-        // this.checkedTodoPopUpHandler(todo, id, functionHandler);
         this.renderPopUp(this._checktodoMarkup());
       }
     });
@@ -245,9 +245,7 @@ class Todos {
         ? '0' + (date.getMonth() + 1)
         : date.getMonth() + 1
     }-${
-      String(date.getDate()).length == 1
-        ? '0' + date.getDate()
-        : date.getDate()
+      String(date.getDate()).length == 1 ? '0' + date.getDate() : date.getDate()
     }T${
       String(date.getHours()).length == 1
         ? '0' + date.getHours()
@@ -260,19 +258,21 @@ class Todos {
   }
 
   _editViewMarkup(todoObj) {
-    console.log(this._dateTimeLoaclValueFormation(todoObj.date));
     return `<h5>${todoObj.createdDate}</h5>
               <div class="todo-list-content-edit">
-                <input class="add-todo-time" type="datetime-local"  value="${this._dateTimeLoaclValueFormation(
-                  todoObj.date,
-                )}"/>
+                <input class="add-todo-time edit-todo-time" type="datetime-local"  value="${
+                  todoObj.dateValue
+                    ? this._dateTimeLoaclValueFormation(todoObj.date)
+                    : ''
+                }"/>
                 <label for="Title">
                   Title -
                   <br />
                   <input
                     class="todo-list-content-title"
-                    type="textarea"
+                    type="textarea"               
                     value="${todoObj.titleValue}"
+                    maxlength="20"
                   />
                 </label>
                 <label for="details">
@@ -281,25 +281,33 @@ class Todos {
                   <textarea
                     name="details"
                     class="todo-list-content-text"
-                    cols="40"
-                    rows="5"
+                  style="height:${this.calculateTextAreaHeight(
+                    todoObj.textValue.length,
+                  )}px;"
                   >${todoObj.textValue}</textarea>
                 </label>
               </div>
               <div class="todo-list-buttons">
-                <button class="todo-list-button todo-edit">
-                  Done<span class="material-symbols-outlined"> done </span>
+                <button class="todo-list-button todo-done">
+                  Done<span class="material-symbols-outlined todo-done"> done </span>
                 </button>
               </div>`;
   }
 
-  // inputboxHandler() {
-  //   document.addEventListener('input', e => {
-  //     if (!e.target.matches('.todo-list-content-text')) return;
-  //     e.target.style.height = 'auto';
-  //     e.target.style.height = e.target.scrollHeight + 'px';
-  //   })
-  // }
+  calculateTextAreaHeight(wordslength) {
+    const numIterations = Math.ceil(wordslength / 44);
+    const increaseInY = numIterations * 26;
+    const height = numIterations === 0 ? 26 : increaseInY;
+    return height;
+  }
+
+  inputboxHandler() {
+    document.addEventListener('input', (e) => {
+      if (!e.target.matches('.todo-list-content-text')) return;
+      e.target.style.height = 'auto';
+      e.target.style.height = e.target.scrollHeight + 10 + 'px';
+    });
+  }
 
   editTodoHandler(functionHandler) {
     document.addEventListener('click', (e) => {
@@ -307,6 +315,55 @@ class Todos {
         this.#currentTodo = e.target.closest('.todo');
         this.#currentId = this.#currentTodo.dataset.id;
         this.renderEdit(functionHandler(this.#currentId));
+      }
+    });
+  }
+
+  editDoneTodoHandler(functionHandler) {
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.todo-done')) {
+        const todo = e.target.closest('.todo');
+        const id = todo.dataset.id;
+        const time = todo.querySelector('.edit-todo-time');
+        const title = todo.querySelector('.todo-list-content-title');
+        const description = todo.querySelector('.todo-list-content-text');
+
+        console.log(time.value);
+        const editData = {
+          time: this._generatedate(time.value),
+          title: title.value,
+          description: description.value,
+        };
+
+        const todoDate = todo.querySelector('.todo-list-content-date');
+        
+        todoDate.innerText = 'on ' + editData.time;
+        
+        const todoTitle = todo.querySelector('.todo-title');
+        
+        todoTitle.innerText = editData.title;
+        
+       
+        
+        console.log(todo.querySelector('.todo-list-content-date'));
+
+        todo.querySelector('.todo-text').innerText = editData.description;
+        functionHandler(id, editData);
+
+        Array.from(todo.children).forEach((element) => {
+          if (!element.classList.contains('hide-display')) element.remove();
+          else {
+            element.classList.remove('hide-display');
+          }
+        });
+
+        if (editData.title.length > 6) {
+          todoDate.style.fontSize = '1rem';
+          todoTitle.style.fontSize = '2.5rem';
+        } else {
+          todoDate.style.fontSize = '1.3rem';
+          todoTitle.style.fontSize = '3rem';
+        }
       }
     });
   }

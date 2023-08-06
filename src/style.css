@@ -318,9 +318,11 @@ li {
   outline: none;
   color: #ff9d0a;
   border-bottom: 1px solid #ff9d0a;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   display: block;
   resize: none;
+  /* height: 100px; */
+
 }
 .todo-list-content-edit {
   display: flex;

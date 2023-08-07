@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./src/Imgs/favicon.svg" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./src/Imgs/favicon.svg"
+      type="image/x-icon"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
@@ -25,7 +29,7 @@
           <ul id="nav-lists">
             <li class="nav-list"><a href="">About me</a></li>
             <li class="nav-list"><a href="">My Projects</a></li>
-            <li class="nav-list"><a href="">Contact Me</a></li>
+            <li class="nav-list"><a href="" id="contact-me" class="contact-me">Contact Me</a></li>
           </ul>
         </nav>
       </div>
@@ -43,15 +47,23 @@
               title="add Title"
               placeholder="Add Title"
               maxlength="20"
+              autocomplete="off"
             />
-            <input id="add-todo-time" class="add-todo-time" type="datetime-local" />
             <input
+              id="add-todo-time"
+              class="add-todo-time"
+              type="datetime-local"
+            />
+            <input
+              autocomplete="off"
               id="add-todo-text"
               type="text"
               placeholder="Add Description"
             />
             <button id="add-todo-btn" class="add-todo-button" type="submit">
-              Add<span class="material-symbols-outlined add-todo-button-icon"> add_circle </span>
+              Add<span class="material-symbols-outlined add-todo-button-icon">
+                add_circle
+              </span>
             </button>
           </form>
 
@@ -130,27 +142,70 @@
       </div>
     </section>
     <section>
-      <div class="overlay hide-display "></div>
-      <div class="popup hide-display  popup-complete">
+      <div class="overlay hide-display"></div>
+      <div class="popup hide-display popup-complete">
         <h3>Are You sure mark it as Completed?</h3>
         <div class="popup-buttons">
-          <button class="popup-button popup-yes"><span class="material-symbols-outlined">done</span>Yes
+          <button class="popup-button popup-yes">
+            <span class="material-symbols-outlined">done</span>Yes
           </button>
-          <button class="popup-button popup-no"><span class="material-symbols-outlined">close</span>No
+          <button class="popup-button popup-no">
+            <span class="material-symbols-outlined">close</span>No
           </button>
+        </div>
+        <p class="popup-permisson">
+          Don't ask again
+          <span class="Permisson-cheked"><input type="checkbox" /> </span>
+        </p>
       </div>
-      <p class="popup-permisson" >Don't ask again <span class="Permisson-cheked"><input type="checkbox">  </span> </p>
     </section>
     <section>
       <div class="overlay hide-display"></div>
       <div class="popup hide-display popup-validation">
         <h3>Please Insert Title Or Description</h3>
         <div class="popup-buttons">
-          <button class="popup-button popup-Okay"><span class="material-symbols-outlined">done</span>Okay
+          <button class="popup-button popup-Okay">
+            <span class="material-symbols-outlined">done</span>Okay
           </button>
+        </div>
       </div>
     </section>
-    </div>
+    <section class="Contact">
+      <div class="overlay contact-overlay hide-display"></div>
+      <div class="Conatact-container ">
+        <form netlify>
+          <h2 class="contact-title">
+            Contact Me
+            <span class="material-symbols-outlined"> deskphone </span>
+          </h2>
+          <div class="form-name">
+            <label for="name">Name :</label>
+            <input id="name" type="text" />
+          </div>
+          <div class="form-email">
+            <label for="email">Email :</label>
+            <input id="email" type="email" />
+          </div>
+          <div class="form-number">
+            <label for="number">Phone :</label>
+            <input id="number" type=="phone" />
+          </div>
+          <div class="form-number">
+            <label for="number">Message :</label>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              autocomplete="off"
+            ></textarea>
+          </div>
+          <button type="submit">
+            Submit <span class="material-symbols-outlined"> send </span>
+          </button>
+            <span class="material-symbols-outlined contact-arrow"> chevron_right </span>
+        </form>
+      </div>
+    </section>
   </body>
-  </html>
-
+</html>

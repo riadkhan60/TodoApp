@@ -1,5 +1,6 @@
 import { getTheValues, saveToStorage, allTodos, todos } from './modal.js';
 import Todos from './view.js';
+import contractView from './contact/contractView.js';
 
 // window.addEventListener('load', (x) => {
 //   allTodos((todo) => {
@@ -74,6 +75,8 @@ function init() {
   Todos.editTodoHandler(editController);
   Todos.inputboxHandler()
   Todos.editDoneTodoHandler(editDoneController);
+  contractView.openFrom();
+  contractView.closeFrom();
 }
 
 init();

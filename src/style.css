@@ -72,26 +72,24 @@ li {
   padding: 2rem 0;
 }
 
-#heading .logo 
-{
+#heading .logo {
   font-size: 3rem;
   font-weight: 700;
   transition: color 0.2s ease;
   cursor: pointer;
 }
-#heading .logo:hover{
-  color: #FFC670;
-} 
+#heading .logo:hover {
+  color: #ffc670;
+}
 
-#heading #nav-lists 
-{
+#heading #nav-lists {
   display: flex;
   gap: 4rem;
   font-weight: 700;
   font-size: 1.6rem;
 }
 
-#heading #nav-lists a{
+#heading #nav-lists a {
   color: #ff9d0a;
   transition: color 0.3s ease-in-out;
 }
@@ -156,13 +154,11 @@ li {
   grid-column: span 2;
 }
 
-.todo-contents #todo-form .add-todo-time 
-{
+.todo-contents #todo-form .add-todo-time {
   cursor: pointer;
   background: #ff9d0a;
   width: 40px;
 }
-
 
 #todo-form #add-todo-text {
   color: white;
@@ -176,8 +172,7 @@ li {
   opacity: 0.6;
 }
 
-.add-todo-button 
-{
+.add-todo-button {
   cursor: pointer;
   margin-top: 1rem;
   /* display: inline-block; */
@@ -193,13 +188,13 @@ li {
   text-align: center;
   transition: all 0.3s ease-out;
 }
-.add-todo-button-icon{
+.add-todo-button-icon {
   transition: all 0.3s ease-out;
 }
 
-.add-todo-button:hover .add-todo-button-icon{
-  transform:rotate(90deg);
-} 
+.add-todo-button:hover .add-todo-button-icon {
+  transform: rotate(90deg);
+}
 
 #todos {
   border-radius: 10px;
@@ -264,18 +259,16 @@ li {
   text-align: center;
   cursor: pointer;
 }
-.todo-list-button span{
-  transition: all 0.2s ease-in-out; 
+.todo-list-button span {
+  transition: all 0.2s ease-in-out;
 }
-.todo-list-button.todo-edit:hover span{
-  transform: scale(1.1);
-
-}
-
-.todo-list-button.todo-delete:hover span{
+.todo-list-button.todo-edit:hover span {
   transform: scale(1.1);
 }
 
+.todo-list-button.todo-delete:hover span {
+  transform: scale(1.1);
+}
 
 .cheked {
   position: absolute;
@@ -322,7 +315,6 @@ li {
   display: block;
   resize: none;
   /* height: 100px; */
-
 }
 .todo-list-content-edit {
   display: flex;
@@ -384,8 +376,7 @@ li {
   visibility: hidden;
 }
 
-.popup 
-{
+.popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -408,22 +399,20 @@ li {
   text-align: center;
 }
 
-.popup h3{
+.popup h3 {
   font-size: 3.6rem;
   text-align: center;
   font-weight: 900;
 }
 
-.popup-buttons{
+.popup-buttons {
   display: flex;
   gap: 5rem;
   justify-content: center;
   align-items: center;
 }
 
-.popup-button
-
-{
+.popup-button {
   outline: none;
   background-color: #ff9d0a;
   border: none;
@@ -437,7 +426,7 @@ li {
   gap: 2px;
   cursor: pointer;
 }
-.popup-button.popup-yes{
+.popup-button.popup-yes {
   color: rgb(55, 3, 3);
 }
 
@@ -446,39 +435,35 @@ li {
   width: 100%;
   height: 100%;
   background-color: #0000008d;
-  backdrop-filter:blur(3px) ;
+  backdrop-filter: blur(3px);
   top: 0;
   left: 0;
   z-index: 300;
 }
 
-.popup-button span{
- transition: all 0.3s ease-in-out;
+.popup-button span {
+  transition: all 0.3s ease-in-out;
 }
 
-.popup-button:hover span
-{
+.popup-button:hover span {
   transform: scale(1.2);
 }
 
-
-.popup-permisson
-{
+.popup-permisson {
   font-size: 1.5rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
-.Permisson-cheked
-{
+.Permisson-cheked {
   margin-top: 2px;
   background-color: #ff9d0a;
   border-radius: 5px;
   width: 15px;
   height: 15px;
 }
-.Permisson-cheked input{
+.Permisson-cheked input {
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -487,11 +472,130 @@ li {
   opacity: 1;
 }
 
-.hide-display{ display: none; }
+.hide-display {
+  display: none;
+}
 
 .emptylist-msg {
   text-align: center;
   color: #ff9d0a;
   font-size: 2rem;
   gap: 0;
+}
+
+.Conatact-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 600;
+  width: 50%;
+  height: 100vh;
+  background-color: #050300;
+  object-fit: blur(20px);
+  color: #ff9d0a;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+
+.Contact-animate{
+  transform: translateX(0);
+}
+
+.Conatact-container form 
+{
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem 3rem;
+  gap: 3rem;
+}
+.Conatact-container form label{
+  font-size: 2.3rem;
+  font-weight: 600;
+}
+
+.Conatact-container form input 
+{
+  max-width: 500px;
+  min-width: 400px;
+  height: 40px;
+  background-color: #ff9d0a !important;
+  color: black;
+  font-size: 2rem;
+  padding: 0 10px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+
+.Conatact-container form textarea {
+  max-width: 500px;
+  min-width: 400px;
+  border-radius: 5px;
+  resize: none;
+  padding: 2rem;
+  height: 80px;
+  background: transparent;
+  background: none;
+  border: 2px solid #ff9d0a;
+  color: #ff9d0a;
+  font-size: 2rem;
+  outline: none;
+}
+
+
+.Conatact-container form > *{
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;  
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 500000s;
+  -webkit-text-fill-color: #000000 !important;
+  font-weight: 400;
+}
+
+.Conatact-container form .contact-title , .Conatact-container form button
+{
+  text-align: center;
+  display: inline-flex;
+  flex-direction: row;
+  /* margin-top: rem; */
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.Conatact-container form .contact-title span{
+    font-size: 4rem;
+}
+
+.Conatact-container form button{
+  outline: none;
+  border: 2px solid #ff9d0a;
+  background: #ff9d0a;
+  padding: 1rem 4rem;
+  color: black;
+  border-radius: 5px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.contact-arrow{
+  color: rgba(101, 246, 123, 0.4);
+  position: absolute;
+  left: 10px;
+  top: 48%;
+}
+
+.contact-arrow{
+  font-size: 6rem;
+  cursor: pointer;
 }

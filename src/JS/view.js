@@ -43,8 +43,8 @@ class Todos {
               </div>
 
               <div class="todo-list-buttons">
-                <button class="todo-list-button todo-edit">
-                  Edit <span class="material-symbols-outlined"> edit</span>
+                <button class="todo-list-button todo-edit edit">
+                  Edit <span class="material-symbols-outlined edit"> edit</span>
                 </button>
                 <button class="todo-list-button todo-delete">
                   Delete<span class="material-symbols-outlined delete-icon"> delete </span>
@@ -311,7 +311,7 @@ class Todos {
 
   editTodoHandler(functionHandler) {
     document.addEventListener('click', (e) => {
-      if (e.target.matches('.todo-edit')) {
+      if (e.target.matches('.edit')) {
         this.#currentTodo = e.target.closest('.todo');
         this.#currentId = this.#currentTodo.dataset.id;
         this.renderEdit(functionHandler(this.#currentId));

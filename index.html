@@ -27,9 +27,11 @@
             <span class="material-symbols-outlined"> deployed_code </span>
           </div>
           <ul id="nav-lists">
-            <li class="nav-list"><a href="">About me</a></li>
+            <li class="nav-list" id="about-me"><a href="">About me</a></li>
             <li class="nav-list"><a href="">My Projects</a></li>
-            <li class="nav-list"><a href="" id="contact-me" class="contact-me">Contact Me</a></li>
+            <li class="nav-list">
+              <a href="" id="contact-me" class="contact-me">Contact Me</a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -172,8 +174,8 @@
     </section>
     <section class="Contact">
       <div class="overlay contact-overlay hide-display"></div>
-      <div class="Conatact-container ">
-        <form name="contact" netlify method="POST" >
+      <div class="Conatact-container">
+        <form name="contact" netlify method="POST">
           <h2 class="contact-title">
             Contact Me
             <span class="material-symbols-outlined"> deskphone </span>
@@ -203,8 +205,58 @@
           <button type="submit">
             Submit <span class="material-symbols-outlined"> send </span>
           </button>
-            <span class="material-symbols-outlined contact-arrow"> chevron_right </span>
+          <span class="material-symbols-outlined contact-arrow">
+            chevron_right
+          </span>
         </form>
+        <div class="contact-icons">
+          <ul class="icon-lists">
+            <li>
+              <a
+                href="https://www.facebook.com/khan.riad.3"
+                target="_blank"
+                class="icon-list"
+                ><img src="./src/Imgs/facebook.png" alt="" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="mailto:khanriad60@gmail.com"
+                target="_blank"
+                class="icon-list"
+                ><img src="./src/Imgs/gmail.png" alt="" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/riadkhan60"
+                target="_blank"
+                class="icon-list"
+                ><img src="./src/Imgs/github.png" alt="" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="aboutSection" class="hide-display">
+      <div class="overlay about-overlay"></div>
+      <div class="about-container">
+        <div class="about-content">
+          <h3>MD SAMIUL ALAM KHAN</h3>
+          <p>
+           I work as a front-end web developer. I am entirely committed to creating error-free, flawlessly robust, and visually appealing websites with complete client satisfaction. I prefer to write clean, easy-to-read code. I am strategic, goal-oriented, and constantly work with an end goal in my mind. I enjoy bringing your ideas to life.
+          </p>
+        </div>
+        <div class="about-img">
+          <img
+            src="./src/Imgs/124164909_2212008852330390_5501660797980127002_n.jpg"
+            alt=""
+          />
+        </div>
+        <div class="about-close hide-display">
+          <span class="material-symbols-outlined"> close </span>
+        </div>
       </div>
     </section>
   </body>

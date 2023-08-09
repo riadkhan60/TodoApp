@@ -30,7 +30,7 @@ function controlAddTodo() {
   Todos.renderMarkup(inputValues);
   saveToStorage();
 
-  if (todos.length > 0) {
+  if (todos.length > 0 && todos.length <= 1) {
     Todos.deleteMessage();
   }
 }
